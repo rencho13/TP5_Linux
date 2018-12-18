@@ -24,14 +24,15 @@ for L in {A..Z}; do
 	echo "`grep -c $L $1` - $L " >> stat
 done
 }
-
-
-if [ "$2" = "-d" ]; then
+if [ "S2" != "-d" ]; then
+	echo "`grep -c $2 $1` - $2 "
+	
+elif [ "$2" = "-d" ]; then
 	statLettre $1 $2
 	sort -n stat | less
 	rm -f stat
 else
-	statLettre $1 $2
+	statLettre $1 
     	sort -nr stat | less
 	rm -f stat
 fi

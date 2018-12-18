@@ -1,11 +1,12 @@
 #!/bin/bash
 
+# Fonction pour compter les lettres dans le fichier dico $1 
 statLettre() 
 {
-echo `touch stat`
+echo `touch stat` # Création d'un fichier temp stat
 
-for L in {A..Z}; do
-	echo "`grep -c $L $1` - $L " >> stat
+for L in {A..Z}; do # boucle sur toute les lettres de A à Z 
+	echo "`grep -c $L $1` - $L " >> stat # grep sur le fichier avec L en paramètre
 done
 }
 
@@ -24,12 +25,12 @@ elif [ ! -f $1 ]; then # Test si le fichier passé en paramètre existe
 	echo "ERREUR : Le fichier n'existe pas "
 	echo -e $messageAide
 	exit
-elif [ "$2" = "-d" ]; then
-	statLettre $1 $2
-	sort -n stat | less
-	rm -f stat
+elif [ "$2" = "-d" ]; then # MISSION 2 : Test du 2nd paramètre pour trier de manière croissante
+	statLettre $1 $2 # Appel de la fonction avec les 2 paramètres
+	sort -n stat | less # affichage du fichier temporaire stat page par page
+	rm -f stat 
 else
 	statLettre $1 $2 
     	sort -nr stat | less
-	rm -f stat
+	rm -f stat # On efface le fichier temp
 fi

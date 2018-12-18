@@ -1,27 +1,30 @@
 #!/bin/bash
 
-# Fonction pour compter les lettres dans le fichier dico $1 
-statLettre() 
-{
+# Langstat : script Bash qui fournit des statistiques sur l'utilisation des lettres dans un fichier dictionnaire
+
+# Fonction pour compter les lettres dans le fichier dico $1 -------------------------
+statLettre()
+	{
 echo `touch stat` # Création d'un fichier temp stat
 
 for L in {A..Z}; do # boucle sur toute les lettres de A à Z 
 	echo "`grep -c $L $1` - $L " >> stat # grep sur le fichier avec L en paramètre
 done
-}
+	}
 
-# Message d'aide qui s'affiche dans le cas d'une erreur
+# Message d'aide qui s'affiche dans le cas d'une erreur------------------------------
 messageAide='USAGE : langstat [FILE] [OPTION]\n OPTION = vide , tri décroissant \n OPTION = -d , tri croissant'
 
+# Début du Script -------------------------------------------------------------------
 if [ $# = "0" ]; then # Test si il y a kkchose de saisi en paramètre
 	echo "ERREUR : Il n'y pas de fichier en paramètre"
 	echo -e $messageAide
 	exit
-elif [ $2 != "-d" ]; then # Test si le second paramètre passé en valide 
-	echo "ERREUR : Le second paramètre n'est pas bon "
+elif [ ! -f $1 ]; then # Test si le fichier est un fichier 
+	echo "ERREUR : Le fichier passé en paramètre n'est pas un fichier "
 	echo -e $messageAide
 	exit
-elif [ ! -f $1 ]; then # Test si le fichier passé en paramètre existe
+elif [ ! -e $1 ]; then # Test si le fichier passé en paramètre existe
 	echo "ERREUR : Le fichier n'existe pas "
 	echo -e $messageAide
 	exit
